@@ -1,1 +1,0 @@
-import{_ as e}from"./plugin-vueexport-helper-DYAABpgn.js";import{c as o,a as r,b as n,o as s}from"./index-GTiCVgdD.js";const a=e({},[["render",function(e,a){return s(),o("div",null,[a[1]||(a[1]=r(" home king 啦啦啦 ")),n("span",{style:{border:"1px solid red"},onClick:a[0]||(a[0]=o=>e.$router.push("/main"))},"to main")])}]]);export{a as default};
