@@ -1,0 +1,1 @@
+import{_ as e}from"./plugin-vueexport-helper-DYAABpgn.js";import{c as r,o as n}from"./index-CHu8JCC1.js";const o=e({},[["render",function(e,o){return n(),r("div",null," news ")}]]);export{o as default};
