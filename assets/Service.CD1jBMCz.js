@@ -1,1 +1,0 @@
-import{_ as e}from"./_plugin-vue_export-helper.DYAABpgn.js";import{c as r,o}from"./index.Ce16KfDP.js";const n=e({},[["render",function(e,n){return o(),r("div",null," Service ")}]]);export{n as default};
