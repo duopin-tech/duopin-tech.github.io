@@ -1,1 +1,0 @@
-import{_ as e}from"./plugin-vueexport-helper-DYAABpgn.js";import{v as r,x as n}from"./index-t9Pweyvp.js";const o=e({},[["render",function(e,o){return n(),r("div",null," Service ")}]]);export{o as default};

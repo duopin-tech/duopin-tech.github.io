@@ -1,1 +1,0 @@
-import{_ as e}from"./plugin-vueexport-helper-DYAABpgn.js";import{c as r,o}from"./index-BSFLOq8v.js";const n=e({},[["render",function(e,n){return o(),r("div",null," example ")}]]);export{n as default};
