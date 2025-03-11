@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Three.js 科技首页</title>
+  <link rel="icon" href="favicon.ico">
+  <title>厦门多拼科技有限公司</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.157.0/three.min.js"></script>
   <style>
@@ -94,9 +96,9 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), 
-                  rgba(255, 215, 0, 0.2) 0%, 
-                  rgba(255, 215, 0, 0) 50%);
+      background: radial-gradient(circle at var(--mouse-x) var(--mouse-y),
+          rgba(255, 215, 0, 0.2) 0%,
+          rgba(255, 215, 0, 0) 50%);
       opacity: 0;
       transition: opacity 0.3s ease;
       z-index: -1;
@@ -109,7 +111,7 @@
 
     .card:hover {
       box-shadow: 0 0 30px rgba(255, 215, 0, 0.3),
-                 inset 0 0 20px rgba(255, 215, 0, 0.2);
+        inset 0 0 20px rgba(255, 215, 0, 0.2);
       border-color: rgba(255, 215, 0, 0.5);
     }
 
@@ -152,24 +154,86 @@
       position: relative;
       z-index: 1;
     }
+
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .btn-container a {
+      position: relative;
+      text-decoration: none;
+      color: #333;
+      font-size: 1.2rem;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    /* 基础下划线效果 */
+    .btn-container a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      transition: width 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    /* 鼠标悬停时的下划线动画 */
+    .btn-container a:hover::before {
+      width: 100%;
+    }
+
+    /* 炫酷的文字效果 */
+    .btn-container a:hover {
+      color: transparent;
+      background: linear-gradient(90deg, #00c6ff, #0072ff, #7d2ae8);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: gradientShift 2s linear infinite;
+      text-shadow: 0 0 8px rgba(0, 198, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* 点击时的效果 */
+    .btn-container a:active {
+      transform: scale(0.95);
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% center;
+      }
+
+      100% {
+        background-position: 200% center;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div id="app">
     <canvas id="bg-canvas"></canvas>
-    
+
     <header class="header">
       <h1>前沿科技解决方案</h1>
-      <p>利用 Three.js 与 Vue 技术，打造沉浸式数字体验，助力企业数字化转型</p>
+      <h2 style="margin-bottom: 16px;">科技创新，探索无止境</h2>
+      <p>打造沉浸式数字体验，助力企业数字化转型</p>
     </header>
-    
+
     <div class="card-container">
-      <div class="card" 
-           v-for="(card, index) in cards" 
-           :key="index"
-           @mousemove="handleMouseMove($event, index)"
-           @mouseleave="resetCardTransform(index)"
-           :ref="'card' + index">
+      <div class="card" v-for="(card, index) in cards" :key="index" @mousemove="handleMouseMove($event, index)"
+        @mouseleave="resetCardTransform(index)" :ref="'card' + index">
         <div class="card-title">{{ card.title }}</div>
         <div class="card-content">{{ card.content }}</div>
         <div class="card-footer">
@@ -177,15 +241,19 @@
         </div>
       </div>
     </div>
-    
+
     <footer class="footer">
-      <p>© 2025 Three.js 科技 | 引领数字化未来</p>
+      <div class="btn-container">
+        <a href="./about.html">关于我们</a>
+        <a href="./policy.html">隐私政策</a>
+      </div>
+      <p>© 2025 多拼科技 | 引领数字化未来</p>
     </footer>
   </div>
 
   <script>
     const { createApp, ref, onMounted } = Vue;
-    
+
     createApp({
       setup() {
         const cards = ref([
@@ -238,33 +306,33 @@
             }
           }
         ]);
-        
+
         const handleMouseMove = (event, index) => {
           const card = event.currentTarget;
           const rect = card.getBoundingClientRect();
-          
+
           // 计算鼠标相对于卡片的位置
           const mouseX = event.clientX - rect.left;
           const mouseY = event.clientY - rect.top;
-          
+
           // 设置CSS变量用于光照效果
           card.style.setProperty('--mouse-x', `${mouseX}px`);
           card.style.setProperty('--mouse-y', `${mouseY}px`);
-          
+
           // 计算倾斜角度
           const centerX = rect.width / 2;
           const centerY = rect.height / 2;
           const rotateY = ((mouseX - centerX) / centerX) * 10; // 最大倾斜角度10度
           const rotateX = ((centerY - mouseY) / centerY) * 10;
-          
+
           // 应用倾斜变换
           card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-          
+
           // 存储变换状态
           cards.value[index].transform.rotateX = rotateX;
           cards.value[index].transform.rotateY = rotateY;
         };
-        
+
         const resetCardTransform = (index) => {
           const card = document.querySelector(`[ref="card${index}"]`);
           if (card) {
@@ -277,40 +345,40 @@
         onMounted(() => {
           initThreeJS();
         });
-        
+
         const initThreeJS = () => {
           // Three.js 初始化
           const canvas = document.getElementById('bg-canvas');
           const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
           renderer.setSize(window.innerWidth, window.innerHeight);
           renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-          
+
           const scene = new THREE.Scene();
           const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
           camera.position.z = 30;
-          
+
           // 创建粒子系统
           const particlesGeometry = new THREE.BufferGeometry();
           const particlesCount = 1500;
-          
+
           const positions = new Float32Array(particlesCount * 3);
           const colors = new Float32Array(particlesCount * 3);
-          
+
           for (let i = 0; i < particlesCount * 3; i += 3) {
             // 位置
             positions[i] = (Math.random() - 0.5) * 100;
             positions[i + 1] = (Math.random() - 0.5) * 100;
             positions[i + 2] = (Math.random() - 0.5) * 100;
-            
+
             // 颜色 - 蓝色调
             colors[i] = 0.1 + Math.random() * 0.2;  // R
             colors[i + 1] = 0.3 + Math.random() * 0.3;  // G
             colors[i + 2] = 0.7 + Math.random() * 0.3;  // B
           }
-          
+
           particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
           particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-          
+
           const particlesMaterial = new THREE.PointsMaterial({
             size: 0.1,
             sizeAttenuation: true,
@@ -318,13 +386,13 @@
             transparent: true,
             opacity: 0.8
           });
-          
+
           const particles = new THREE.Points(particlesGeometry, particlesMaterial);
           scene.add(particles);
-          
+
           // 添加环形网格
           const gridGeometry = new THREE.TorusGeometry(15, 0.5, 16, 100);
-          const gridMaterial = new THREE.MeshBasicMaterial({ 
+          const gridMaterial = new THREE.MeshBasicMaterial({
             color: 0x4facfe,
             transparent: true,
             opacity: 0.2,
@@ -333,10 +401,10 @@
           const grid = new THREE.Mesh(gridGeometry, gridMaterial);
           grid.rotation.x = Math.PI / 2;
           scene.add(grid);
-          
+
           // 添加环形网格2
           const gridGeometry2 = new THREE.TorusGeometry(25, 0.3, 16, 100);
-          const gridMaterial2 = new THREE.MeshBasicMaterial({ 
+          const gridMaterial2 = new THREE.MeshBasicMaterial({
             color: 0x00f2fe,
             transparent: true,
             opacity: 0.1,
@@ -345,49 +413,49 @@
           const grid2 = new THREE.Mesh(gridGeometry2, gridMaterial2);
           grid2.rotation.x = Math.PI / 3;
           scene.add(grid2);
-          
+
           // 鼠标移动效果
           let mouseX = 0, mouseY = 0;
           let targetX = 0, targetY = 0;
-          
+
           const handleMouseMoveBg = (event) => {
             mouseX = (event.clientX - window.innerWidth / 2) * 0.001;
             mouseY = (event.clientY - window.innerHeight / 2) * 0.001;
           };
-          
+
           window.addEventListener('mousemove', handleMouseMoveBg);
-          
+
           // 处理窗口大小变化
           window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
           });
-          
+
           // 动画循环
           const animate = () => {
             requestAnimationFrame(animate);
-            
+
             targetX += (mouseX - targetX) * 0.05;
             targetY += (mouseY - targetY) * 0.05;
-            
+
             particles.rotation.y += 0.001;
             particles.rotation.x += 0.0005;
-            
+
             grid.rotation.z += 0.001;
             grid2.rotation.z -= 0.001;
-            
+
             // 相机轻微跟随鼠标移动
             camera.position.x += (targetX * 10 - camera.position.x) * 0.05;
             camera.position.y += (-targetY * 10 - camera.position.y) * 0.05;
             camera.lookAt(scene.position);
-            
+
             renderer.render(scene, camera);
           };
-          
+
           animate();
         };
-        
+
         return {
           cards,
           handleMouseMove,
@@ -397,4 +465,5 @@
     }).mount('#app');
   </script>
 </body>
+
 </html>

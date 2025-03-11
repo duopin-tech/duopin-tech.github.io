@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-gray: #f5f7fa;
+            --dark-gray: #555;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 导航栏 */
+        nav {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links a {
+            margin-left: 25px;
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* 英雄区 */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.8) 0%, rgba(52, 152, 219, 0.4) 100%), url('/api/placeholder/1200/800') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background-color: #fff;
+            transform: skewY(-3deg);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.2s;
+            animation-fill-mode: both;
+        }
+
+        /* 关于我们部分 */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--dark-gray);
+            max-width: 700px;
+            margin: 0 auto 50px;
+            font-size: 18px;
+        }
+
+        /* 公司介绍 */
+        .about-company {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-content {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+
+        .about-content h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        .about-content p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        /* 使命与愿景 */
+        .vision-mission {
+            background-color: var(--light-gray);
+            border-radius: 10px;
+            padding: 60px 40px;
+            margin-bottom: 80px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .vision-mission-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .mission,
+        .vision {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .mission h3,
+        .vision h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .mission h3::before,
+        .vision h3::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        .mission p,
+        .vision p {
+            line-height: 1.8;
+        }
+
+        /* 数值统计 */
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-bottom: 80px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            min-width: 200px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 18px;
+            color: var(--dark-gray);
+        }
+
+        /* 团队部分 */
+        .team {
+            padding-bottom: 80px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .team-member {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .member-image {
+            height: 250px;
+            background: url('/api/placeholder/400/250') center/cover no-repeat;
+        }
+
+        .member-info {
+            padding: 20px;
+        }
+
+        .member-name {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: var(--secondary-color);
+        }
+
+        .member-title {
+            font-size: 14px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .member-bio {
+            font-size: 14px;
+            color: var(--dark-gray);
+        }
+
+        /* 联系区域 */
+        .contact {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 80px 0;
+        }
+
+        .contact-container {
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .contact-info,
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-info h3,
+        .contact-form h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .contact-girl {
+            flex: 1;
+            height: auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .contact-girl img {
+            width: 60%;
+            height: auto;
+            border-radius: 25px;
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .info-item-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .info-item-text h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .info-item-text p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* 底部区域 */
+        footer {
+            background-color: #222;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0 15px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            font-size: 14px;
+        }
+
+        /* 动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .nav-links {
+                margin-top: 15px;
+            }
+
+            .nav-links a {
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">
+                厦门多拼科技
+            </div>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="#about">关于我们</a>
+                <a href="#contact">联系我们</a>
+                <a href="policy.html">隐私政策</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">创新引领未来</h1>
+            <h2 class="hero-subtitle">我们致力于用技术改变世界，创造更美好的明天</h2>
+        </div>
+    </section>
+
+    <!-- 关于我们部分 -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">关于我们</h2>
+            <p class="section-subtitle">了解我们如何通过创新科技解决方案改变世界</p>
+
+            <div class="about-company fade-in">
+                <div class="about-image">
+                    <img src="/about.jpeg" alt="公司团队合影">
+                </div>
+                <div class="about-content">
+                    <h3>我们的故事</h3>
+                    <p>厦门多拼科技有限公司成立于2019年，由一群热爱技术、充满激情的年轻人共同创办。我们相信技术的力量可以解决人类面临的各种挑战，无论是环境问题、健康医疗，还是提高生活质量。</p>
+                    <p>从最初的五人小团队发展到如今的全球性企业，我们始终坚持以用户为中心，不断突破创新边界，开发出一系列改变行业的产品和服务。</p>
+                    <p>在快速发展的同时，我们从未忘记初心——用技术服务人类，让世界变得更美好。这是我们团队共同的信念，也是推动我们不断前行的动力。</p>
+                </div>
+            </div>
+
+            <div class="vision-mission fade-in">
+                <div class="vision-mission-container">
+                    <div class="mission">
+                        <h3>我们的使命</h3>
+                        <p>通过创新技术解决方案，解决社会痛点，提升人类生活品质。我们致力于开发简单易用、功能强大的产品，让科技能够真正为每个人所用，不分年龄、教育背景或技术水平。</p>
+                        <p>我们坚信，最好的技术是能够融入日常生活，并在不知不觉中提升生活品质的技术。我们的每一项创新，都是为了让科技变得更加人性化、更加贴近生活。</p>
+                    </div>
+                    <div class="vision">
+                        <h3>我们的愿景</h3>
+                        <p>成为全球领先的科技创新公司，用我们的产品和服务触及十亿人的生活。我们希望在未来的十年内，能够在人工智能、可持续发展、健康科技等领域取得突破性进展，推动人类社会向更加美好的方向发展。
+                        </p>
+                        <p>我们相信，真正的成功不仅仅是商业上的成功，更在于我们能够为这个世界带来多少正面的改变。这是我们团队共同的追求。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats fade-in">
+                <div class="stat-item">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">年行业经验</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">30+</div>
+                    <div class="stat-label">专业团队成员</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">全球合作伙伴</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">200万+</div>
+                    <div class="stat-label">用户信赖</div>
+                </div>
+            </div>
+
+            <!-- <div class="team fade-in">
+                <h3 class="section-title">我们的领导团队</h3>
+                <p class="section-subtitle">认识那些推动公司不断前进的杰出人才</p>
+
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-image"></div>
+                        <div class="member-info">
+                            <h4 class="member-name">张明</h4>
+                            <div class="member-title">创始人 & CEO</div>
+                            <p class="member-bio">前谷歌高级工程师，拥有20年技术和管理经验，致力于将创新科技打造成为全球领先的科技企业。</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image"></div>
+                        <div class="member-info">
+                            <h4 class="member-name">李华</h4>
+                            <div class="member-title">首席技术官</div>
+                            <p class="member-bio">人工智能领域专家，曾主导多项突破性技术研发，拥有超过15项技术专利。</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image"></div>
+                        <div class="member-info">
+                            <h4 class="member-name">王芳</h4>
+                            <div class="member-title">产品设计总监</div>
+                            <p class="member-bio">前阿里巴巴用户体验负责人，专注于创造简洁、直观且功能强大的产品体验。</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image"></div>
+                        <div class="member-info">
+                            <h4 class="member-name">赵强</h4>
+                            <div class="member-title">全球运营负责人</div>
+                            <p class="member-bio">拥有丰富的全球市场拓展经验，曾成功带领团队进入多个国际市场。</p>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </section>
+
+    <!-- 联系区域 -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">联系我们</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.7);">我们期待与您建立联系，共创未来</p>
+
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>联系方式</h3>
+
+                    <div class="info-item">
+                        <div class="info-item-icon">📍</div>
+                        <div class="info-item-text">
+                            <h4>企业地址</h4>
+                            <p>厦门市海沧区沧林三路129号501室</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-item-icon">📞</div>
+                        <div class="info-item-text">
+                            <h4>微信</h4>
+                            <p>lwjsailor</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-item-icon">✉️</div>
+                        <div class="info-item-text">
+                            <h4>电子邮箱</h4>
+                            <p>duopintech@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-item-icon">🕒</div>
+                        <div class="info-item-text">
+                            <h4>工作时间</h4>
+                            <p>周一至周五: 9:00 - 18:00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-girl">
+                    <img src="./contact.jpeg" alt="">
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- 底部区域 -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">首页</a>
+                <a href="#about">关于我们</a>
+                <a href="#contact">联系我们</a>
+                <a href="policy.html">隐私政策</a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 多拼科技 版权所有
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 淡入动画效果
+        document.addEventListener('DOMContentLoaded', function () {
+            const fadeElements = document.querySelectorAll('.fade-in');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+
+</html>
