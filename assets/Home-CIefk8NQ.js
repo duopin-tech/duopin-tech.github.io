@@ -1,1 +1,0 @@
-import{u as a,c as s,a as e,b as o,E as t,o as n}from"./index-Cj_Zbp4X.js";const i={o:"Home",setup:i=>(a(),(a,i)=>{const p=t;return n(),s("div",null,[e("span",{style:{border:"1px solid red"},onClick:i[0]||(i[0]=s=>a.$router.push("/main"))},"to main page1"),o(p,{total:100,"page-size":10,"page-sizes":[10,20,30]})])})};export{i as default};
