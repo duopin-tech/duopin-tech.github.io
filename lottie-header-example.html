@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LottieFiles Header Example</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+        }
+
+        .header {
+            position: relative;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: white;
+        }
+
+        .lottie-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: -1;
+        }
+
+        .header-content {
+            text-align: center;
+            z-index: 1;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            max-width: 80%;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .decoration {
+            position: fixed;
+            width: 200px;
+            top: 0px;
+            right: 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            transform: rotate(0deg) scale(3);
+
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div id="lottie-background" class="lottie-background"></div>
+        <div class="header-content">
+            <h1>Welcome to My Website</h1>
+            <p>Featuring a cool LottieFiles animation as the header background</p>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <h2>About Us</h2>
+        <p>This is a sample website demonstrating how to use LottieFiles as a dynamic header background.</p>
+        <!-- Add more content here -->
+        <div id="decoration" class="decoration"></div>
+    </div>
+
+    <!-- Load LottieFiles player -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.0/lottie.min.js"></script>
+
+    <script>
+        // Initialize the Lottie animation
+        const animation = lottie.loadAnimation({
+            container: document.getElementById('lottie-background'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            // Replace this URL with your chosen Lottie animation JSON file
+            path: './bg2.json' // Example: Blue waves animation
+        });
+
+        const animation2 = lottie.loadAnimation({
+            container: document.getElementById('decoration'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            // Replace this URL with your chosen Lottie animation JSON file
+            path: './celebrate.json' // Example: Blue waves animation
+        });
+
+        // Optional: Make animation responsive
+        window.addEventListener('resize', function () {
+            animation.resize();
+            animation2.resize();
+        });
+    </script>
+</body>
+
+</html>

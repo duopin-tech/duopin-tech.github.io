@@ -237,7 +237,7 @@
         <div class="card-title">{{ card.title }}</div>
         <div class="card-content">{{ card.content }}</div>
         <div class="card-footer">
-          <button class="btn">了解更多</button>
+          <button class="btn" @click.stop="navigateTo(card.link)">了解更多</button>
         </div>
       </div>
     </div>
@@ -263,7 +263,8 @@
             transform: {
               rotateX: 0,
               rotateY: 0
-            }
+            },
+            link: './3dcase.html'
           },
           {
             title: "数据可视化平台",
@@ -271,7 +272,8 @@
             transform: {
               rotateX: 0,
               rotateY: 0
-            }
+            },
+            link: './dashboard.html'
           },
           {
             title: "前端性能优化",
@@ -279,7 +281,8 @@
             transform: {
               rotateX: 0,
               rotateY: 0
-            }
+            },
+            link: './optimized.html'
           },
           {
             title: "交互式教育平台",
@@ -287,7 +290,8 @@
             transform: {
               rotateX: 0,
               rotateY: 0
-            }
+            },
+            link: './test2.html'
           },
           {
             title: "WebAR 解决方案",
@@ -295,7 +299,8 @@
             transform: {
               rotateX: 0,
               rotateY: 0
-            }
+            },
+            link: './webar.html'
           },
           {
             title: "实时协作工具",
@@ -303,7 +308,8 @@
             transform: {
               rotateX: 0,
               rotateY: 0
-            }
+            },
+            link: './realtime.html'
           }
         ]);
 
@@ -345,6 +351,10 @@
         onMounted(() => {
           initThreeJS();
         });
+
+        const navigateTo = (link) => {
+          window.location.href = link;
+        }
 
         const initThreeJS = () => {
           // Three.js 初始化
@@ -459,7 +469,8 @@
         return {
           cards,
           handleMouseMove,
-          resetCardTransform
+          resetCardTransform,
+          navigateTo
         };
       }
     }).mount('#app');
