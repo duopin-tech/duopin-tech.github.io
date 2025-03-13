@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DataVision - Advanced Market Analytics</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.0/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.0/lottie.min.js"></script>
     <style>
         :root {
             --primary: #4a6ff3;
@@ -31,6 +32,16 @@
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
+        }
+        .body-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
         }
         
         .container {
@@ -141,6 +152,7 @@
             padding: 1.5rem;
             margin-bottom: 1.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0.8;
         }
         
         .chart-header {
@@ -261,19 +273,10 @@
 </head>
 <body>
     <div class="container">
+        <div id="bg" class="body-bg"></div>
         <header>
             <div class="logo">
-                <div class="logo-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                        <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
-                        <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
-                        <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
-                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                    </svg>
-                </div>
-                DataVision
+                数据驾驶舱
             </div>
             <nav>
                 <a href="#" class="active">Dashboard</a>
@@ -284,10 +287,10 @@
             </nav>
         </header>
         
-        <div class="dashboard">
+        <div id="dashboard" class="dashboard">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Market Share</div>
+                    <div class="card-title">市场份额</div>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"></circle>
                         <line x1="12" y1="16" x2="12" y2="12"></line>
@@ -299,13 +302,13 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="18 15 12 9 6 15"></polyline>
                     </svg>
-                    +2.4% from last quarter
+                    +2.4% 较上一季度增加
                 </div>
             </div>
             
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Revenue Growth</div>
+                    <div class="card-title">收入增长</div>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"></circle>
                         <line x1="12" y1="16" x2="12" y2="12"></line>
@@ -323,7 +326,7 @@
             
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Customer Acquisition</div>
+                    <div class="card-title">客户获取</div>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"></circle>
                         <line x1="12" y1="16" x2="12" y2="12"></line>
@@ -341,7 +344,7 @@
             
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Competitor Growth</div>
+                    <div class="card-title">竞争对手的增长</div>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"></circle>
                         <line x1="12" y1="16" x2="12" y2="12"></line>
@@ -353,20 +356,20 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
-                    -2.1% from last quarter
+                    -2.1% 较上一季度增加
                 </div>
             </div>
         </div>
         
         <div class="chart-container">
             <div class="chart-header">
-                <div class="chart-title">Market Performance Trends</div>
+                <div class="chart-title">市场表现趋势</div>
                 <div class="chart-controls">
-                    <button class="chart-control">Day</button>
-                    <button class="chart-control">Week</button>
-                    <button class="chart-control active">Month</button>
-                    <button class="chart-control">Quarter</button>
-                    <button class="chart-control">Year</button>
+                    <button class="chart-control">天</button>
+                    <button class="chart-control">周</button>
+                    <button class="chart-control active">月</button>
+                    <button class="chart-control">季度</button>
+                    <button class="chart-control">年度</button>
                 </div>
             </div>
             <div id="marketTrendsChart"></div>
@@ -459,6 +462,22 @@
     </div>
 
     <script>
+
+        // Initialize the Lottie animation
+        const animation = lottie.loadAnimation({
+            container: document.getElementById('bg'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            // Replace this URL with your chosen Lottie animation JSON file
+            path: './bg4.json' // Example: Blue waves animation
+        });
+
+        // Optional: Make animation responsive
+        window.addEventListener('resize', function () {
+            animation.resize();
+        });
+
         // Initialize ECharts
         const chart = echarts.init(document.getElementById('marketTrendsChart'));
         
