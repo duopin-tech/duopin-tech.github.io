@@ -81,12 +81,12 @@
       backdrop-filter: blur(10px);
       position: relative;
       overflow: hidden;
-      transition: transform 0.5s ease, box-shadow 0.5s ease;
       transform-style: preserve-3d;
       border: 1px solid rgba(100, 100, 255, 0.2);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      will-change: transform;
     }
 
     .card::before {
@@ -233,7 +233,7 @@
 
     <div class="card-container">
       <div class="card" v-for="(card, index) in cards" :key="index" @mousemove="handleMouseMove($event, index)"
-        @mouseleave="resetCardTransform(index)" :ref="'card' + index">
+        @mouseleave="resetCardTransform($event, index)" :ref="'card' + index">
         <div class="card-title">{{ card.title }}</div>
         <div class="card-content">{{ card.content }}</div>
         <div class="card-footer">
@@ -257,6 +257,15 @@
     createApp({
       setup() {
         const cards = ref([
+          {
+            title: "行业AI智能体",
+            content: "基于大语言模型和行业知识库开发的智能助手，为各行业提供专业、精准的AI解决方案，助力企业提升运营效率和决策能力。",
+            transform: {
+              rotateX: 0,
+              rotateY: 0
+            },
+            link: './agent.html'
+          },
           {
             title: "3D 可视化解决方案",
             content: "通过 Three.js 技术打造沉浸式 3D 产品展示，提升用户体验和互动性，为您的产品呈现全新视角。",
@@ -285,15 +294,6 @@
             link: './optimized.html'
           },
           {
-            title: "交互式教育平台",
-            content: "基于 WebGL 和 Three.js 技术开发的教育平台，通过 3D 模型和交互式内容，提高学习效率和参与度。",
-            transform: {
-              rotateX: 0,
-              rotateY: 0
-            },
-            link: './test2.html'
-          },
-          {
             title: "WebAR 解决方案",
             content: "无需下载应用，直接在浏览器中体验增强现实技术，为营销活动和产品展示带来创新体验。",
             transform: {
@@ -313,6 +313,30 @@
           }
         ]);
 
+        // 添加动画状态追踪
+        const animationStates = ref(cards.value.map(() => ({
+          currentRotateX: 0,
+          currentRotateY: 0,
+          targetRotateX: 0,
+          targetRotateY: 0
+        })));
+
+        // 动画循环
+        const animateCards = () => {
+          animationStates.value.forEach((state, index) => {
+            // 平滑过渡到目标角度
+            state.currentRotateX += (state.targetRotateX - state.currentRotateX) * 0.15;
+            state.currentRotateY += (state.targetRotateY - state.currentRotateY) * 0.15;
+
+            // 应用变换
+            const card = document.querySelector(`[ref="card${index}"]`);
+            if (card) {
+              card.style.transform = `perspective(1000px) rotateX(${state.currentRotateX}deg) rotateY(${state.currentRotateY}deg)`;
+            }
+          });
+          requestAnimationFrame(animateCards);
+        };
+
         const handleMouseMove = (event, index) => {
           const card = event.currentTarget;
           const rect = card.getBoundingClientRect();
@@ -325,31 +349,34 @@
           card.style.setProperty('--mouse-x', `${mouseX}px`);
           card.style.setProperty('--mouse-y', `${mouseY}px`);
 
-          // 计算倾斜角度
+          // 计算目标倾斜角度
           const centerX = rect.width / 2;
           const centerY = rect.height / 2;
-          const rotateY = ((mouseX - centerX) / centerX) * 10; // 最大倾斜角度10度
-          const rotateX = ((centerY - mouseY) / centerY) * 10;
+          const targetRotateY = ((mouseX - centerX) / centerX) * 20; // 增加到20度
+          const targetRotateX = ((centerY - mouseY) / centerY) * 20; // 增加到20度
 
-          // 应用倾斜变换
-          card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-
-          // 存储变换状态
-          cards.value[index].transform.rotateX = rotateX;
-          cards.value[index].transform.rotateY = rotateY;
+          // 更新目标角度
+          animationStates.value[index].targetRotateX = targetRotateX;
+          animationStates.value[index].targetRotateY = targetRotateY;
         };
 
-        const resetCardTransform = (index) => {
-          const card = document.querySelector(`[ref="card${index}"]`);
+        const resetCardTransform = (event, index) => {
+          // 重置目标角度
+          animationStates.value[index].targetRotateX = 0;
+          animationStates.value[index].targetRotateY = 0;
+          
+          // 重置光照效果
+          const card = event.currentTarget;
           if (card) {
-            card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            card.style.setProperty('--mouse-x', '50%');
+            card.style.setProperty('--mouse-y', '50%');
           }
-          cards.value[index].transform.rotateX = 0;
-          cards.value[index].transform.rotateY = 0;
         };
 
         onMounted(() => {
           initThreeJS();
+          // 启动卡片动画循环
+          animateCards();
         });
 
         const navigateTo = (link) => {
@@ -435,6 +462,25 @@
 
           window.addEventListener('mousemove', handleMouseMoveBg);
 
+          // 动画循环
+          const animate = () => {
+            requestAnimationFrame(animate);
+
+            // 平滑过渡到目标位置
+            targetX += (mouseX - targetX) * 0.05;
+            targetY += (mouseY - targetY) * 0.05;
+
+            // 更新相机位置
+            camera.position.x = targetX * 2;
+            camera.position.y = targetY * 2;
+
+            // 旋转网格
+            grid.rotation.z += 0.001;
+            grid2.rotation.z -= 0.0005;
+
+            renderer.render(scene, camera);
+          };
+
           // 处理窗口大小变化
           window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
@@ -442,27 +488,7 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
           });
 
-          // 动画循环
-          const animate = () => {
-            requestAnimationFrame(animate);
-
-            targetX += (mouseX - targetX) * 0.05;
-            targetY += (mouseY - targetY) * 0.05;
-
-            particles.rotation.y += 0.001;
-            particles.rotation.x += 0.0005;
-
-            grid.rotation.z += 0.001;
-            grid2.rotation.z -= 0.001;
-
-            // 相机轻微跟随鼠标移动
-            camera.position.x += (targetX * 10 - camera.position.x) * 0.05;
-            camera.position.y += (-targetY * 10 - camera.position.y) * 0.05;
-            camera.lookAt(scene.position);
-
-            renderer.render(scene, camera);
-          };
-
+          // 启动动画
           animate();
         };
 
