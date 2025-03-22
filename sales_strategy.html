@@ -5,6 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>销售策略文档</title>
+  <!-- 引入Element Plus -->
+  <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="https://unpkg.com/element-plus"></script>
   <style>
     body {
       font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
@@ -184,6 +188,102 @@
       font-style: italic;
       color: #666;
     }
+
+    .process-timeline {
+      margin: 40px 0;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .timeline-step {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .timeline-step:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-step::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 40px;
+      bottom: -30px;
+      width: 2px;
+      background: #e4e7ed;
+    }
+
+    .timeline-step:last-child::before {
+      display: none;
+    }
+
+    .timeline-icon {
+      width: 48px;
+      height: 48px;
+      background: #4a6ff3;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-right: 20px;
+      flex-shrink: 0;
+    }
+
+    .timeline-content {
+      flex: 1;
+      padding: 10px 0;
+    }
+
+    .timeline-title {
+      font-size: 1.1em;
+      color: #2c3e50;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .timeline-desc {
+      color: #666;
+      font-size: 0.9em;
+      line-height: 1.5;
+    }
+
+    .timeline-arrow {
+      position: absolute;
+      left: 48px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #4a6ff3;
+      font-size: 1.2em;
+      opacity: 0.5;
+    }
+
+    @media (max-width: 768px) {
+      .timeline-step {
+        flex-direction: column;
+      }
+
+      .timeline-step::before {
+        left: 24px;
+        top: 48px;
+        bottom: -20px;
+      }
+
+      .timeline-icon {
+        margin-bottom: 15px;
+      }
+
+      .timeline-arrow {
+        display: none;
+      }
+    }
   </style>
 </head>
 
@@ -191,7 +291,110 @@
   <h1>销售策略文档</h1>
 
   <div class="section">
-    <h2>1. 核心价值主张</h2>
+    <h2>1. 销售及签约流程</h2>
+    <div class="process-timeline">
+      <div class="timeline-step">
+        <div class="timeline-icon">1</div>
+        <div class="timeline-content">
+          <div class="timeline-title">挖掘搜索潜在客户</div>
+          <div class="timeline-desc">通过美团/饿了么等平台搜索目标行业客户，建立初步客户池</div>
+        </div>
+        <div class="timeline-arrow">→</div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="timeline-icon">2</div>
+        <div class="timeline-content">
+          <div class="timeline-title">联系沟通</div>
+          <div class="timeline-desc">电话/现场销售打动客户，展示价值主张，建立初步信任</div>
+        </div>
+        <div class="timeline-arrow">→</div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="timeline-icon">3</div>
+        <div class="timeline-content">
+          <div class="timeline-title">需求分析</div>
+          <div class="timeline-desc">深入沟通，搜集客户需求，确定具体模块需求，制定解决方案</div>
+        </div>
+        <div class="timeline-arrow">→</div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="timeline-icon">4</div>
+        <div class="timeline-content">
+          <div class="timeline-title">初步设计</div>
+          <div class="timeline-desc">设计人员完成初稿，展示给客户确认，收集反馈意见</div>
+        </div>
+        <div class="timeline-arrow">→</div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="timeline-icon">5</div>
+        <div class="timeline-content">
+          <div class="timeline-title">签订合同</div>
+          <div class="timeline-desc">确认设计及服务合同，支付定金，正式启动项目</div>
+        </div>
+        <div class="timeline-arrow">→</div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="timeline-icon">6</div>
+        <div class="timeline-content">
+          <div class="timeline-title">完善设计</div>
+          <div class="timeline-desc">根据客户反馈完善设计，添加功能模块，优化用户体验</div>
+        </div>
+        <div class="timeline-arrow">→</div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="timeline-icon">7</div>
+        <div class="timeline-content">
+          <div class="timeline-title">域名注册</div>
+          <div class="timeline-desc">协助客户注册并配置域名，确保品牌标识的独特性</div>
+        </div>
+        <div class="timeline-arrow">→</div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="timeline-icon">8</div>
+        <div class="timeline-content">
+          <div class="timeline-title">开发上线</div>
+          <div class="timeline-desc">完成开发，部署上线店铺名牌网站，进行最终测试和优化</div>
+        </div>
+        <div class="timeline-arrow">→</div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="timeline-icon">9</div>
+        <div class="timeline-content">
+          <div class="timeline-title">项目验收</div>
+          <div class="timeline-desc">客户确认网站功能及设计效果，签署验收单，支付尾款</div>
+        </div>
+        <div class="timeline-arrow">→</div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="timeline-icon">10</div>
+        <div class="timeline-content">
+          <div class="timeline-title">培训交付</div>
+          <div class="timeline-desc">提供后台操作培训，交付网站管理权限，确保客户能够独立运营</div>
+        </div>
+        <div class="timeline-arrow">→</div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="timeline-icon">11</div>
+        <div class="timeline-content">
+          <div class="timeline-title">售后服务</div>
+          <div class="timeline-desc">提供7*24小时技术支持，定期数据报告，持续优化建议</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>2. 核心价值主张</h2>
     <p class="highlight">核心卖点：静态官网3980元，功能版6980元 = 永久官网 + 专属设计 + 零后续成本 + 域名代注册 + LOGO设计</p>
 
     <table class="comparison-table">
@@ -245,7 +448,7 @@
   </div>
 
   <div class="section">
-    <h2>2. 目标客户定位</h2>
+    <h2>3. 目标客户定位</h2>
     <h3>高潜力行业：</h3>
     <ul>
       <li>餐饮（非纯外卖店）</li>
@@ -262,7 +465,7 @@
   </div>
 
   <div class="section">
-    <h2>3. 场景化价值展示</h2>
+    <h2>4. 场景化价值展示</h2>
     <div class="scenario-container">
       <div class="scenario-item">
         <h3>场景一：客户推荐</h3>
@@ -342,7 +545,7 @@
   </div>
 
   <div class="section">
-    <h2>4. 销售话术</h2>
+    <h2>5. 销售话术</h2>
     <div class="faq-item">
       <div class="faq-question">品牌主权问题</div>
       <p>"您是否想过，当客户在美团搜索您的店时，其实是在给平台增加流量？如果有一天平台提高佣金或调整排名规则，您如何直接触达老客户？"</p>
@@ -358,7 +561,7 @@
   </div>
 
   <div class="section">
-    <h2>5. 异议处理</h2>
+    <h2>6. 异议处理</h2>
     <div class="faq-item">
       <div class="faq-question">"我用美团就够了"</div>
       <p>回应："美团是客流管道，官网是品牌蓄水池。就像您不会只靠路过的客人做生意，线上也需要自己的'门店'。"</p>
@@ -422,7 +625,7 @@
   </div>
 
   <div class="section">
-    <h2>6. 营销策略</h2>
+    <h2>7. 营销策略</h2>
     <h3>裂变式转介绍机制</h3>
     <ul>
       <li>老客户推荐奖励：赠送官网功能升级</li>
