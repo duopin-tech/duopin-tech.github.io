@@ -237,14 +237,77 @@
         .image-container:hover img {
             transform: scale(1.03);
         }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        @keyframes gradient-move {
+            0% {
+                background-position: 0% 0%;
+            }
+
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+
+        #contact-button {
+            animation: gradient-move 15s linear infinite;
+            background: linear-gradient(135deg, #f2ef4f, #7227d4, #5353d8);
+            background-size: 200% 200%;
+            color: var(--primary-color);
+            padding: 10px 20px;
+            border: 2px solid var(--primary-color);
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.8s ease, box-shadow 0.3s ease;
+        }
+
+        #contact-button:hover {
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
+        }
     </style>
 </head>
 
 <body>
     <header>
-        <div class="container">
+        <div class="container" style="position: relative;">
             <h1>专业前端性能优化</h1>
             <p class="header-subtitle">通过专家级优化技术提升网站速度和用户体验，驱动用户参与度和转化率</p>
+            <button id="contact-button" style="
+            position: fixed; 
+            top: 20px; 
+            right: 20px; 
+            color: white; 
+            padding: 12px 25px; 
+            border: none; 
+            border-radius: 30px; 
+            font-size: 1rem; 
+            font-weight: bold; 
+            cursor: pointer; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                联系客服
+            </button>
         </div>
     </header>
 
@@ -357,7 +420,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path
-                        d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z">
+                        d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z">
                     </path>
                 </svg>
             </div>
@@ -433,15 +496,17 @@
         <div class="cta-section">
             <h2>准备好提升您的网站性能了吗？</h2>
             <p>我们的性能优化服务将为您的网站速度和用户体验带来可衡量的改进。</p>
-            <a href="#" class="button" id="audit-button">预约性能审计</a>
+            <a href="#" class="button" id="audit-button">预约性能审计/优化</a>
         </div>
         <!-- 弹出框 -->
         <div id="popup"
-            style="display: flex; flex-direction: column; align-items: center; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center; z-index: 1000;">
-            <h3>扫码联系客服</h3>
-            <p>请使用微信扫描下方二维码，联系客服获取更多信息。</p>
-            <img src="./qrcode.jpg" alt="微信二维码" style="width: 400px; height: 400px; margin: 20px 0 0;">
-            <div style="display: flex; justify-content: center;">
+            style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center; z-index: 1000;">
+            <div>
+                <h3>扫码联系客服</h3>
+                <p>请使用微信扫描下方二维码，联系客服获取更多信息。</p>
+                <img src="./qrcode.jpg" alt="微信二维码" style="width: 400px; height: 400px; margin: 20px 0;">
+            </div>
+            <div style="display: flex; flex-direction: row; justify-content: flex-end;">
                 <button id="close-popup"
                     style="background-color: var(--primary-color); color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">关闭</button>
             </div>
@@ -457,20 +522,37 @@
         </div>
     </footer>
     <script>
-        document.getElementById('audit-button').addEventListener('click', function (event) {
-            event.preventDefault();
+        function showPopup() {
             document.getElementById('popup').style.display = 'block';
             document.getElementById('overlay').style.display = 'block';
-        });
+        }
 
-        document.getElementById('close-popup').addEventListener('click', function () {
+        function hidePopup() {
             document.getElementById('popup').style.display = 'none';
             document.getElementById('overlay').style.display = 'none';
+        }
+
+        document.getElementById('audit-button').addEventListener('click', function (event) {
+            event.preventDefault();
+            showPopup();
         });
 
-        document.getElementById('overlay').addEventListener('click', function () {
-            document.getElementById('popup').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
+        document.getElementById('contact-button').addEventListener('click', function () {
+            showPopup();
+        });
+
+        document.getElementById('close-popup').addEventListener('click', hidePopup);
+        document.getElementById('overlay').addEventListener('click', hidePopup);
+
+        // 添加交互效果
+        const contactButton = document.getElementById('contact-button');
+        contactButton.removeEventListener('mouseenter', function () {
+            contactButton.style.transform = 'scale(1.1)';
+            contactButton.style.boxShadow = '0 8px 15px rgba(0, 0, 0, 0.2)';
+        });
+        contactButton.removeEventListener('mouseleave', function () {
+            contactButton.style.transform = 'scale(1)';
+            contactButton.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
         });
     </script>
 </body>
