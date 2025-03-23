@@ -2,16 +2,16 @@
 <html lang="zh-CN">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>销售策略文档</title>
   <!-- 引入Element Plus -->
-  <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
+  <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css" />
   <script src="https://unpkg.com/vue@3"></script>
   <script src="https://unpkg.com/element-plus"></script>
   <style>
     body {
-      font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
       line-height: 1.6;
       max-width: 800px;
       margin: 0 auto;
@@ -209,10 +209,10 @@
     }
 
     .timeline-step::before {
-      content: '';
+      content: "";
       position: absolute;
       left: 24px;
-      top: 40px;
+      top: 50px;
       bottom: -30px;
       width: 2px;
       background: #e4e7ed;
@@ -271,9 +271,9 @@
       }
 
       .timeline-step::before {
-        left: 24px;
+        left: 18px;
         top: 48px;
-        bottom: -20px;
+        bottom: 0px;
       }
 
       .timeline-icon {
@@ -283,119 +283,283 @@
       .timeline-arrow {
         display: none;
       }
+
+      .timeline-content {
+        margin-left: 60px;
+      }
+    }
+
+    /* 添加移动端导航样式 */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      padding: 10px;
+    }
+
+    .mobile-nav-toggle {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #4a6ff3;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      z-index: 1001;
+      cursor: pointer;
+    }
+
+    .mobile-nav-content {
+      display: none;
+      padding: 15px;
+    }
+
+    .mobile-nav-content.show {
+      display: block;
+    }
+
+    .mobile-nav-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .mobile-nav-item {
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .mobile-nav-item:last-child {
+      border-bottom: none;
+    }
+
+    .mobile-nav-link {
+      color: #333;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .mobile-nav-link.active {
+      color: #4a6ff3;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 60px;
+      }
+
+      .mobile-nav {
+        display: block;
+      }
+
+      .mobile-nav-toggle {
+        display: flex;
+      }
+
+      .section {
+        margin: 15px 0;
+        padding: 15px;
+      }
+
+      .scenario-content {
+        flex-direction: column;
+      }
+
+      .scenario-before,
+      .scenario-after {
+        margin-bottom: 15px;
+      }
+
+      .timeline-step {
+        margin-bottom: 20px;
+      }
+
+      .timeline-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1em;
+      }
+
+      .timeline-title {
+        font-size: 1em;
+      }
+
+      .timeline-desc {
+        font-size: 0.85em;
+      }
     }
   </style>
 </head>
 
 <body>
+  <!-- 添加移动端导航 -->
+  <div class="mobile-nav">
+    <div class="mobile-nav-content">
+      <ul class="mobile-nav-list">
+        <li class="mobile-nav-item">
+          <a href="#section-1" class="mobile-nav-link">销售及签约流程</a>
+        </li>
+        <li class="mobile-nav-item">
+          <a href="#section-2" class="mobile-nav-link">核心价值主张</a>
+        </li>
+        <li class="mobile-nav-item">
+          <a href="#section-3" class="mobile-nav-link">目标客户定位</a>
+        </li>
+        <li class="mobile-nav-item">
+          <a href="#section-4" class="mobile-nav-link">场景化价值展示</a>
+        </li>
+        <li class="mobile-nav-item">
+          <a href="#section-5" class="mobile-nav-link">销售话术</a>
+        </li>
+        <li class="mobile-nav-item">
+          <a href="#section-6" class="mobile-nav-link">异议处理</a>
+        </li>
+        <li class="mobile-nav-item">
+          <a href="#section-7" class="mobile-nav-link">营销策略</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mobile-nav-toggle">
+    <span>目录</span>
+  </div>
+
   <h1>销售策略文档</h1>
 
-  <div class="section">
+  <div class="section" id="section-1">
     <h2>1. 销售及签约流程</h2>
     <div class="process-timeline">
       <div class="timeline-step">
         <div class="timeline-icon">1</div>
         <div class="timeline-content">
           <div class="timeline-title">挖掘搜索潜在客户</div>
-          <div class="timeline-desc">通过美团/饿了么等平台搜索目标行业客户，建立初步客户池</div>
+          <div class="timeline-desc">
+            通过美团/饿了么等平台搜索目标行业客户，建立初步客户池
+          </div>
         </div>
-        <div class="timeline-arrow">→</div>
       </div>
 
       <div class="timeline-step">
         <div class="timeline-icon">2</div>
         <div class="timeline-content">
           <div class="timeline-title">联系沟通</div>
-          <div class="timeline-desc">电话/现场销售打动客户，展示价值主张，建立初步信任</div>
+          <div class="timeline-desc">
+            电话/现场销售打动客户，展示价值主张，建立初步信任
+          </div>
         </div>
-        <div class="timeline-arrow">→</div>
       </div>
 
       <div class="timeline-step">
         <div class="timeline-icon">3</div>
         <div class="timeline-content">
           <div class="timeline-title">需求分析</div>
-          <div class="timeline-desc">深入沟通，搜集客户需求，确定具体模块需求，制定解决方案</div>
+          <div class="timeline-desc">
+            深入沟通，搜集客户需求，确定具体模块需求，制定解决方案
+          </div>
         </div>
-        <div class="timeline-arrow">→</div>
       </div>
 
       <div class="timeline-step">
         <div class="timeline-icon">4</div>
         <div class="timeline-content">
           <div class="timeline-title">初步设计</div>
-          <div class="timeline-desc">设计人员完成初稿，展示给客户确认，收集反馈意见</div>
+          <div class="timeline-desc">
+            设计人员完成初稿，展示给客户确认，收集反馈意见
+          </div>
         </div>
-        <div class="timeline-arrow">→</div>
       </div>
 
       <div class="timeline-step">
         <div class="timeline-icon">5</div>
         <div class="timeline-content">
           <div class="timeline-title">签订合同</div>
-          <div class="timeline-desc">确认设计及服务合同，支付定金，正式启动项目</div>
+          <div class="timeline-desc">
+            确认设计及服务合同，支付定金，正式启动项目
+          </div>
         </div>
-        <div class="timeline-arrow">→</div>
       </div>
 
       <div class="timeline-step">
         <div class="timeline-icon">6</div>
         <div class="timeline-content">
           <div class="timeline-title">完善设计</div>
-          <div class="timeline-desc">根据客户反馈完善设计，添加功能模块，优化用户体验</div>
+          <div class="timeline-desc">
+            根据客户反馈完善设计，添加功能模块，优化用户体验
+          </div>
         </div>
-        <div class="timeline-arrow">→</div>
       </div>
 
       <div class="timeline-step">
         <div class="timeline-icon">7</div>
         <div class="timeline-content">
           <div class="timeline-title">域名注册</div>
-          <div class="timeline-desc">协助客户注册并配置域名，确保品牌标识的独特性</div>
+          <div class="timeline-desc">
+            协助客户注册并配置域名，确保品牌标识的独特性
+          </div>
         </div>
-        <div class="timeline-arrow">→</div>
       </div>
 
       <div class="timeline-step">
         <div class="timeline-icon">8</div>
         <div class="timeline-content">
           <div class="timeline-title">开发上线</div>
-          <div class="timeline-desc">完成开发，部署上线店铺名牌网站，进行最终测试和优化</div>
+          <div class="timeline-desc">
+            完成开发，部署上线店铺名牌网站，进行最终测试和优化
+          </div>
         </div>
-        <div class="timeline-arrow">→</div>
       </div>
 
       <div class="timeline-step">
         <div class="timeline-icon">9</div>
         <div class="timeline-content">
           <div class="timeline-title">项目验收</div>
-          <div class="timeline-desc">客户确认网站功能及设计效果，签署验收单，支付尾款</div>
+          <div class="timeline-desc">
+            客户确认网站功能及设计效果，签署验收单，支付尾款
+          </div>
         </div>
-        <div class="timeline-arrow">→</div>
       </div>
 
       <div class="timeline-step">
         <div class="timeline-icon">10</div>
         <div class="timeline-content">
           <div class="timeline-title">培训交付</div>
-          <div class="timeline-desc">提供后台操作培训，交付网站管理权限，确保客户能够独立运营</div>
+          <div class="timeline-desc">
+            提供后台操作培训，交付网站管理权限，确保客户能够独立运营
+          </div>
         </div>
-        <div class="timeline-arrow">→</div>
       </div>
 
       <div class="timeline-step">
         <div class="timeline-icon">11</div>
         <div class="timeline-content">
           <div class="timeline-title">售后服务</div>
-          <div class="timeline-desc">提供7*24小时技术支持，定期数据报告，持续优化建议</div>
+          <div class="timeline-desc">
+            提供7*24小时技术支持，定期数据报告，持续优化建议
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="section">
+  <div class="section" id="section-2">
     <h2>2. 核心价值主张</h2>
-    <p class="highlight">核心卖点：静态官网3980元，功能版6980元 = 永久官网 + 专属设计 + 零后续成本 + 域名代注册 + LOGO设计</p>
+    <p class="highlight">
+      核心卖点：静态官网3980元，功能版6980元 = 永久官网 + 专属设计 +
+      零后续成本 + 域名代注册 + LOGO设计
+    </p>
 
     <table class="comparison-table">
       <tr>
@@ -447,7 +611,7 @@
     </ul>
   </div>
 
-  <div class="section">
+  <div class="section" id="section-3">
     <h2>3. 目标客户定位</h2>
     <h3>高潜力行业：</h3>
     <ul>
@@ -464,7 +628,7 @@
     </ul>
   </div>
 
-  <div class="section">
+  <div class="section" id="section-4">
     <h2>4. 场景化价值展示</h2>
     <div class="scenario-container">
       <div class="scenario-item">
@@ -489,7 +653,9 @@
             </ul>
           </div>
         </div>
-        <p class="scenario-quote">"当朋友问起您的店，您是发美团链接，还是发送一个体现品牌调性的官网？后者会让客户感受到专业度。"</p>
+        <p class="scenario-quote">
+          "当朋友问起您的店，您是发美团链接，还是发送一个体现品牌调性的官网？后者会让客户感受到专业度。"
+        </p>
       </div>
 
       <div class="scenario-item">
@@ -514,7 +680,9 @@
             </ul>
           </div>
         </div>
-        <p class="scenario-quote">"节日促销时，您只能在平台改价格，而官网可以设计专属活动页面，搭配品牌故事视频，提升转化率。"</p>
+        <p class="scenario-quote">
+          "节日促销时，您只能在平台改价格，而官网可以设计专属活动页面，搭配品牌故事视频，提升转化率。"
+        </p>
       </div>
 
       <div class="scenario-item">
@@ -539,92 +707,130 @@
             </ul>
           </div>
         </div>
-        <p class="scenario-quote">"官网是您的品牌故事展示窗口，让客户了解您的创业历程、产品理念，建立更深的情感连接。"</p>
+        <p class="scenario-quote">
+          "官网是您的品牌故事展示窗口，让客户了解您的创业历程、产品理念，建立更深的情感连接。"
+        </p>
       </div>
     </div>
   </div>
 
-  <div class="section">
+  <div class="section" id="section-5">
     <h2>5. 销售话术</h2>
     <div class="faq-item">
       <div class="faq-question">品牌主权问题</div>
-      <p>"您是否想过，当客户在美团搜索您的店时，其实是在给平台增加流量？如果有一天平台提高佣金或调整排名规则，您如何直接触达老客户？"</p>
+      <p>
+        "您是否想过，当客户在美团搜索您的店时，其实是在给平台增加流量？如果有一天平台提高佣金或调整排名规则，您如何直接触达老客户？"
+      </p>
     </div>
     <div class="faq-item">
       <div class="faq-question">客户信任度</div>
-      <p>"当客户想了解您的品牌故事或产品详情时，只能看到平台上的简单图片和评分，这足够建立深度信任吗？数据显示，70%的用户更信任有独立官网的品牌。"</p>
+      <p>
+        "当客户想了解您的品牌故事或产品详情时，只能看到平台上的简单图片和评分，这足够建立深度信任吗？数据显示，70%的用户更信任有独立官网的品牌。"
+      </p>
     </div>
     <div class="faq-item">
       <div class="faq-question">数据资产积累</div>
-      <p>"您在平台上的客户数据属于谁？独立网站能让您直接获取客户邮箱、行为数据，未来做精准营销，而不是受制于平台。"</p>
+      <p>
+        "您在平台上的客户数据属于谁？独立网站能让您直接获取客户邮箱、行为数据，未来做精准营销，而不是受制于平台。"
+      </p>
     </div>
   </div>
 
-  <div class="section">
+  <div class="section" id="section-6">
     <h2>6. 异议处理</h2>
     <div class="faq-item">
       <div class="faq-question">"我用美团就够了"</div>
-      <p>回应："美团是客流管道，官网是品牌蓄水池。就像您不会只靠路过的客人做生意，线上也需要自己的'门店'。"</p>
+      <p>
+        回应："美团是客流管道，官网是品牌蓄水池。就像您不会只靠路过的客人做生意，线上也需要自己的'门店'。"
+      </p>
     </div>
     <div class="faq-item">
       <div class="faq-question">"没技术维护"</div>
-      <p>回应："我们提供每月数据报告和内容更新服务，您只需专注经营，技术问题交给我们。"</p>
+      <p>
+        回应："我们提供每月数据报告和内容更新服务，您只需专注经营，技术问题交给我们。"
+      </p>
     </div>
     <div class="faq-item">
       <div class="faq-question">"价格太贵了"</div>
-      <p>回应："相比每年2000+的平台费用，我们的一次性3980元投资更划算。5年下来，您能省下6000多元。而且官网是永久资产，平台费用是持续支出。"</p>
+      <p>
+        回应："相比每年2000+的平台费用，我们的一次性3980元投资更划算。5年下来，您能省下6000多元。而且官网是永久资产，平台费用是持续支出。"
+      </p>
     </div>
     <div class="faq-item">
       <div class="faq-question">"现在生意不好，等生意好了再说"</div>
-      <p>回应："官网恰恰是提升生意的工具。数据显示，有官网的商家平均客单价提升30%，复购率提升40%。现在正是投资品牌建设的最佳时机。"</p>
+      <p>
+        回应："官网恰恰是提升生意的工具。数据显示，有官网的商家平均客单价提升30%，复购率提升40%。现在正是投资品牌建设的最佳时机。"
+      </p>
     </div>
     <div class="faq-item">
       <div class="faq-question">"我不会用电脑"</div>
-      <p>回应："我们提供完整的培训服务，包括手机端操作指导。而且我们的后台设计非常直观，就像发朋友圈一样简单。您看，这是其他客户的使用反馈..."</p>
+      <p>
+        回应："我们提供完整的培训服务，包括手机端操作指导。而且我们的后台设计非常直观，就像发朋友圈一样简单。您看，这是其他客户的使用反馈..."
+      </p>
     </div>
     <div class="faq-item">
       <div class="faq-question">"我担心网站没人访问"</div>
-      <p>回应："我们会帮您进行SEO优化，让您的网站在百度、微信等平台更容易被找到。同时，您可以把官网链接放在外卖包装、店内菜单等地方，让每个到店客户都能看到。"</p>
+      <p>
+        回应："我们会帮您进行SEO优化，让您的网站在百度、微信等平台更容易被找到。同时，您可以把官网链接放在外卖包装、店内菜单等地方，让每个到店客户都能看到。"
+      </p>
     </div>
     <div class="faq-item">
       <div class="faq-question">"我担心网站会打不开"</div>
-      <p>回应："我们使用阿里云服务器，保证99.9%的访问稳定性。如果出现任何问题，我们承诺48小时内解决。这是我们的服务承诺书..."</p>
+      <p>
+        回应："我们使用阿里云服务器，保证99.9%的访问稳定性。如果出现任何问题，我们承诺48小时内解决。这是我们的服务承诺书..."
+      </p>
     </div>
     <div class="faq-item">
       <div class="faq-question">"我担心设计效果不好"</div>
-      <p>回应："我们的设计师会先了解您的品牌调性，提供3套设计方案供您选择。如果不满意，可以免费修改3次。您看，这是其他客户的设计案例..."</p>
+      <p>
+        回应："我们的设计师会先了解您的品牌调性，提供3套设计方案供您选择。如果不满意，可以免费修改3次。您看，这是其他客户的设计案例..."
+      </p>
     </div>
     <div class="faq-item">
       <div class="faq-question">"我担心更新内容麻烦"</div>
-      <p>回应："我们提供每月免费内容更新服务，包括图片处理、文字编辑等。您只需要提供素材，剩下的交给我们。这是我们的服务流程..."</p>
+      <p>
+        回应："我们提供每月免费内容更新服务，包括图片处理、文字编辑等。您只需要提供素材，剩下的交给我们。这是我们的服务流程..."
+      </p>
     </div>
     <div class="faq-item">
       <div class="faq-question">"我担心网站不安全"</div>
-      <p>回应："我们采用SSL加密技术，确保网站安全。同时提供定期备份服务，您的数据安全有保障。这是我们的安全认证..."</p>
+      <p>
+        回应："我们采用SSL加密技术，确保网站安全。同时提供定期备份服务，您的数据安全有保障。这是我们的安全认证..."
+      </p>
     </div>
     <div class="faq-item">
       <div class="faq-question">"我担心网站加载慢"</div>
-      <p>回应："我们采用CDN加速技术，确保网站在全国各地都能快速访问。平均加载时间控制在2秒以内，这是我们的性能测试报告..."</p>
+      <p>
+        回应："我们采用CDN加速技术，确保网站在全国各地都能快速访问。平均加载时间控制在2秒以内，这是我们的性能测试报告..."
+      </p>
     </div>
     <div class="faq-item">
       <div class="faq-question">"我担心网站不美观"</div>
-      <p>回应："我们的设计师团队有10年+经验，服务过上千家品牌。我们会根据您的行业特点，设计符合您品牌调性的网站。这是我们的设计作品集..."</p>
+      <p>
+        回应："我们的设计师团队有10年+经验，服务过上千家品牌。我们会根据您的行业特点，设计符合您品牌调性的网站。这是我们的设计作品集..."
+      </p>
     </div>
     <div class="faq-item">
       <div class="faq-question">"我担心网站功能不够"</div>
-      <p>回应："我们的旗舰版包含在线预约、购物车等功能，而且可以根据您的需求定制开发。您看，这是功能清单..."</p>
+      <p>
+        回应："我们的旗舰版包含在线预约、购物车等功能，而且可以根据您的需求定制开发。您看，这是功能清单..."
+      </p>
     </div>
     <div class="faq-item">
       <div class="faq-question">"我担心售后服务"</div>
-      <p>回应："我们提供7*24小时技术支持，专人对接服务。同时提供每月数据报告，帮助您了解网站运营情况。这是我们的服务承诺..."</p>
+      <p>
+        回应："我们提供7*24小时技术支持，专人对接服务。同时提供每月数据报告，帮助您了解网站运营情况。这是我们的服务承诺..."
+      </p>
     </div>
     <div class="faq-item">
       <div class="faq-question">"我担心网站不赚钱"</div>
-      <p>回应："我们提供完整的营销方案，包括SEO优化、社交媒体引流等。数据显示，有官网的商家平均月营业额提升20%。这是我们的客户案例..."</p>
+      <p>
+        回应："我们提供完整的营销方案，包括SEO优化、社交媒体引流等。数据显示，有官网的商家平均月营业额提升20%。这是我们的客户案例..."
+      </p>
     </div>
   </div>
 
-  <div class="section">
+  <div class="section" id="section-7">
     <h2>7. 营销策略</h2>
     <h3>裂变式转介绍机制</h3>
     <ul>
@@ -646,6 +852,47 @@
       <li>设置签约仪式感：交付时赠送实体证书</li>
     </ul>
   </div>
+
+  <script>
+    // 添加移动端导航交互
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleBtn = document.querySelector(".mobile-nav-toggle");
+      const navContent = document.querySelector(".mobile-nav-content");
+      const navLinks = document.querySelectorAll(".mobile-nav-link");
+      const sections = document.querySelectorAll(".section");
+
+      // 切换导航菜单
+      toggleBtn.addEventListener("click", function () {
+        navContent.classList.toggle("show");
+      });
+
+      // 点击导航链接时关闭菜单
+      navLinks.forEach((link) => {
+        link.addEventListener("click", function () {
+          navContent.classList.remove("show");
+        });
+      });
+
+      // 监听滚动，更新当前激活的导航项
+      window.addEventListener("scroll", function () {
+        let current = "";
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          if (pageYOffset >= sectionTop - 60) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href").slice(1) === current) {
+            link.classList.add("active");
+          }
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>
