@@ -1,0 +1,1 @@
+import{k as e,l as s,c as l,a as n,o as a}from"./index-DC75xqdf.js";const o={l:"News",setup(o){const r=e(null);return e(null),s((()=>{})),(e,s)=>(a(),l("div",{ref_key:"container",ref:r,style:{width:"300px",overflow:"scroll"}},s[0]||(s[0]=[n("span",null,"hello news",-1)]),512))}};export{o as default};
