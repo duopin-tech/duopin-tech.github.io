@@ -1,0 +1,1 @@
+import{_ as r}from"./plugin-vueexport-helper-DYAABpgn.js";import{F as e,G as o}from"./vendor-BzUOOJY8.js";const n=r({},[["render",function(r,n){return o(),e("div",null,"3dcase")}]]);export{n as default};
