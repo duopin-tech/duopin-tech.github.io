@@ -1,1 +1,0 @@
-/* empty css                                                          */import{_ as t}from"./plugin-vueexport-helper-DYAABpgn.js";import{F as e,G as o,U as s}from"./vendor-BzUOOJY8.js";const a=["href"],r=t({t:"NavButton",props:{text:String,to:String},setup:t=>(r,p)=>(o(),e("a",{href:t.to,class:"nav-button"},s(t.text),9,a))},[["__scopeId","data-v-c1441e46"]]);export{r as N};
