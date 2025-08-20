@@ -1,0 +1,1 @@
+import{aA as t,F as n,G as s,U as a}from"./vendor-BzUOOJY8.js";/* empty css                                            */const o={t:"NavButton",props:{text:String,to:String},setup(o){const e=t(),r=o,p=()=>{e.push(r.to)};return(t,e)=>(s(),n("span",{onClick:p,class:"nav-button"},a(o.text),1))}};export{o as _};
