@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Performance Optimization</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #0f172a;
+            --accent-color: #8b5cf6;
+            --background-color: #f8fafc;
+            --card-color: #ffffff;
+            --text-color: #334155;
+            --heading-color: #1e293b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .header-subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 1rem auto 0;
+            opacity: 0.9;
+        }
+
+        h2 {
+            color: var(--heading-color);
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        h2 svg {
+            margin-right: 10px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card-color);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .technique-card {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 15px;
+            background: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .technique-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+        }
+
+        .technique-content h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            color: var(--heading-color);
+        }
+
+        .technique-content p {
+            margin: 0;
+        }
+
+        .metrics-section {
+            background: linear-gradient(135deg, #f9f9ff, #f0f7ff);
+            padding: 3rem 0;
+            margin: 3rem 0;
+            border-radius: 20px;
+        }
+
+        .metrics-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (max-width: 768px) {
+            .metrics-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .metric-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 10px 0;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .tools-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+
+        .tools-table th,
+        .tools-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .tools-table th {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--heading-color);
+        }
+
+        .tools-table tr:hover {
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+
+        .button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #1d4ed8;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .image-container {
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 300px;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.03);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        @keyframes gradient-move {
+            0% {
+                background-position: 0% 0%;
+            }
+
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+
+
+
+        #contact-button:hover {
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
+        }
+
+        .header-button-container {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container" style="position: relative;">
+            <h1>专业前端性能优化</h1>
+            <p class="header-subtitle">通过专家级优化技术提升网站速度和用户体验，驱动用户参与度和转化率</p>
+            <div class="header-button-container">
+                <button id="contact-button" style="
+                    color: white; 
+                    padding: 12px 25px; 
+                    border: none; 
+                    border-radius: 30px; 
+                    font-size: 1rem; 
+                    background-color: var(--primary-color);
+                    font-weight: bold; 
+                    cursor: pointer; 
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    联系客服
+                </button>
+                <button id="home-button" style="
+                    color: white; 
+                    background-color: var(--primary-color);
+                    padding: 12px 25px; 
+                    border: none; 
+                    border-radius: 30px; 
+                    font-size: 1rem; 
+                    font-weight: bold; 
+                    cursor: pointer; 
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    返回首页
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- <div class="image-container">
+            <img src="./xingnen.jpeg" alt="网站性能指标仪表板">
+        </div> -->
+
+        <div class="content-grid">
+            <div class="card">
+                <h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    性能的重要性
+                </h2>
+                <p>网站性能不再仅仅是技术考虑因素，而是一个直接影响业务的关键指标：</p>
+                <ul>
+                    <li><strong>用户体验：</strong>53%的移动用户会放弃加载时间超过3秒的网站</li>
+                    <li><strong>转化率：</strong>每100毫秒的加载延迟可能导致转化率降低7%</li>
+                    <li><strong>SEO排名：</strong>谷歌将页面速度作为桌面和移动搜索的排名因素</li>
+                    <li><strong>品牌认知：</strong>79%对网站性能不满意的客户不太可能再次购买</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                    </svg>
+                    性能基准
+                </h2>
+                <p>行业领先者保持以下关键性能指标：</p>
+                <ul>
+                    <li><strong>首次内容绘制：</strong>低于1.8秒</li>
+                    <li><strong>可交互时间：</strong>低于3.8秒</li>
+                    <li><strong>总阻塞时间：</strong>低于200毫秒</li>
+                    <li><strong>累积布局偏移：</strong>小于0.1</li>
+                    <li><strong>最大内容绘制：</strong>低于2.5秒</li>
+                </ul>
+                <p>我们的优化技术旨在帮助您在所有设备和连接速度下达到或超过这些基准。</p>
+            </div>
+        </div>
+
+        <h2>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="21" x2="4" y2="14"></line>
+                <line x1="4" y1="10" x2="4" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="3"></line>
+                <line x1="20" y1="21" x2="20" y2="16"></line>
+                <line x1="20" y1="12" x2="20" y2="3"></line>
+                <line x1="1" y1="14" x2="7" y2="14"></line>
+                <line x1="9" y1="8" x2="15" y2="8"></line>
+                <line x1="17" y1="16" x2="23" y2="16"></line>
+            </svg>
+            高级优化技术
+        </h2>
+
+        <div class="technique-card">
+            <div class="technique-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+            </div>
+            <div class="technique-content">
+                <h3>最小化HTTP请求</h3>
+                <p>通过打包CSS/JS文件、使用CSS精灵图，以及实现预连接和预获取等资源提示来减少服务器请求。</p>
+            </div>
+        </div>
+
+        <div class="technique-card">
+            <div class="technique-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+            </div>
+            <div class="technique-content">
+                <h3>高级图片优化</h3>
+                <p>实现新一代图片格式（WebP、AVIF）、响应式图片和现代加载策略，包括懒加载和低质量图片占位符。</p>
+            </div>
+        </div>
+
+        <div class="technique-card">
+            <div class="technique-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+            </div>
+            <div class="technique-content">
+                <h3>战略资源加载</h3>
+                <p>使用代码分割、裁剪和动态导入等技术优化关键渲染路径，实现按需加载。</p>
+            </div>
+        </div>
+
+        <div class="technique-card">
+            <div class="technique-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z">
+                    </path>
+                </svg>
+            </div>
+            <div class="technique-content">
+                <h3>高级缓存策略</h3>
+                <p>通过Service Workers、HTTP/2服务器推送和缓存失效策略实现复杂的缓存策略，优化资源交付。</p>
+            </div>
+        </div>
+
+        <div class="metrics-section">
+            <h2 style="text-align: center; margin-bottom: 2rem;">性能提升效果</h2>
+            <div class="metrics-container">
+                <div class="metric-card">
+                    <div class="metric-value">47%</div>
+                    <div class="metric-label">更快的加载时间</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">32%</div>
+                    <div class="metric-label">跳出率降低</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">18%</div>
+                    <div class="metric-label">转化率提升</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">5倍</div>
+                    <div class="metric-label">优化投资回报</div>
+                </div>
+            </div>
+        </div>
+
+        <h2>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+            专业性能测试工具
+        </h2>
+
+        <table class="tools-table">
+            <thead>
+                <tr>
+                    <th>工具</th>
+                    <th>最佳用途</th>
+                    <th>主要功能</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Google PageSpeed Insights</strong></td>
+                    <td>全面的分析和可执行的建议</td>
+                    <td>真实性能数据、核心网页指标评估、移动端和桌面端分析</td>
+                </tr>
+                <tr>
+                    <td><strong>WebPageTest</strong></td>
+                    <td>详细的水瀑布分析和高级测试</td>
+                    <td>多地点测试、连接限制、视频捕获、竞品分析</td>
+                </tr>
+                <tr>
+                    <td><strong>Lighthouse</strong></td>
+                    <td>全面的网页质量审计</td>
+                    <td>性能、可访问性、渐进式网页应用、SEO和最佳实践审计</td>
+                </tr>
+                <tr>
+                    <td><strong>Chrome DevTools</strong></td>
+                    <td>实时性能调试</td>
+                    <td>网络分析、性能分析、内存泄漏检测、运行时性能分析</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="cta-section">
+            <h2>准备好提升您的网站性能了吗？</h2>
+            <p>我们的性能优化服务将为您的网站速度和用户体验带来可衡量的改进。</p>
+            <a href="#" class="button" id="audit-button">预约性能审计/优化</a>
+        </div>
+        <!-- 弹出框 -->
+        <div id="popup"
+            style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center; z-index: 1000;">
+            <div>
+                <h3>扫码联系客服</h3>
+                <p>请使用微信扫描下方二维码，联系客服获取更多信息。</p>
+                <img src="./qrcode.png" alt="微信二维码" style="width: 400px; height: 400px; margin: 20px 0;">
+            </div>
+            <div style="display: flex; flex-direction: row; justify-content: flex-end;">
+                <button id="close-popup"
+                    style="background-color: var(--primary-color); color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">关闭</button>
+            </div>
+        </div>
+        <div id="overlay"
+            style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;">
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 多拼科技 | 引领数字化未来</p>
+        </div>
+    </footer>
+    <script>
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function hidePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        document.getElementById('audit-button').addEventListener('click', function (event) {
+            event.preventDefault();
+            showPopup();
+        });
+
+        document.getElementById('contact-button').addEventListener('click', function () {
+            showPopup();
+        });
+
+        document.getElementById('close-popup').addEventListener('click', hidePopup);
+        document.getElementById('overlay').addEventListener('click', hidePopup);
+
+        // 返回首页按钮事件
+        document.getElementById('home-button').addEventListener('click', function () {
+            window.location.href = '/';
+        });
+
+        // 添加交互效果
+        const contactButton = document.getElementById('contact-button');
+        contactButton.removeEventListener('mouseenter', function () {
+            contactButton.style.transform = 'scale(1.1)';
+            contactButton.style.boxShadow = '0 8px 15px rgba(0, 0, 0, 0.2)';
+        });
+        contactButton.removeEventListener('mouseleave', function () {
+            contactButton.style.transform = 'scale(1)';
+            contactButton.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+        });
+    </script>
+</body>
+
+</html>
